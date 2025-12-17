@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 export const validationError = (
-  _req: Request,
-  res: Response,
   status: number,
-  message: string
+  message: string,
+  _req: Request,
+  res: Response
 ) => {
   return res.status(status).json({
     message,
