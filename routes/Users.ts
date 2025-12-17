@@ -12,15 +12,12 @@ userRouter.get("/", (req: Request, res: Response, next: NextFunction) => {
 
 userRouter.get("/:id", (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = req.params.id;
+    const id = Number(req.params.id);
+    if (Number.isNaN(id))
+      return validationError(400, "User id must be a number", req, res);
 
     const user = users.find((u) => u.id === id);
-
-    if (!user) {
-      return res.status(404).json({
-        message: "User not found",
-      });
-    }
+    if (!user) return validationError(404, "User not found", req, res);
 
     res.status(200).json({
       data: user,
@@ -34,9 +31,10 @@ userRouter.post("/", (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name, email, password } = req.body;
 
-    if (!name) validationError(400, "User name is required", req, res);
-    if (!email) validationError(400, "User email is required", req, res);
-    if (!password) validationError(400, "User password is required", req, res);
+    if (!name) return validationError(400, "User name is required", req, res);
+    if (!email) return validationError(400, "User email is required", req, res);
+    if (!password)
+      return validationError(400, "User password is required", req, res);
 
     const user = {
       id: users.length + 1,
