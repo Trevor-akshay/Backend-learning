@@ -14,19 +14,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id Int @id @default(autoincrement())
-  email String @unique
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
   password String
-  name String?
+  name     String?
 
   orders Orders[]
 }
 
-model Orders{
-  id Int @id @default(autoincrement())
-  item String
+model Orders {
+  id      Int    @id @default(autoincrement())
+  item    String
   Quantiy Int
-  user_id Int @unique
-  user   User @relation(fields: [user_id], references: [id])
+  user_id Int
+  user    User   @relation(fields: [user_id], references: [id])
+
+  @@index([user_id])
 }
