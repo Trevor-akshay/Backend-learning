@@ -6,10 +6,13 @@ const errorHandler = (
   next: NextFunction
 ) => {
   if (err instanceof Error) {
-    res.status(500).json({
-      message: "Internal server error",
+    return res.status(400).json({
+      message: err.message,
     });
   }
+  res.status(500).json({
+    message: "Internal server error",
+  });
 };
 
 export default errorHandler;
