@@ -53,24 +53,24 @@ class UserController {
     });
   };
 
-  deleteUser = (req: Request, res: Response) => {
+  deleteUser = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
     if (Number.isNaN(id))
       return validationError(400, "User id must be a number", req, res);
 
-    this.userService.deleteUser(id);
+    await this.userService.deleteUser(id);
 
-    res.status(202).json({
+    res.status(204).json({
       message: "User Deleted",
     });
   };
 
-  updateUser = (req: Request, res: Response) => {
+  updateUser = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
     if (Number.isNaN(id))
       return validationError(400, "User id must be a number", req, res);
 
-    this.userService.updateUser(id, { ...req.body });
+    await this.userService.updateUser(id, { ...req.body });
 
     res.status(202).json({
       message: "User Updated",
