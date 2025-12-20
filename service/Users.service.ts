@@ -11,8 +11,7 @@ class UserService {
   };
 
   getUser = async (id: number) => {
-    const user = await getUser(id);
-    return user;
+    return await getUser(id);
   };
 
   postUser = async (data: {
@@ -25,15 +24,15 @@ class UserService {
     return user;
   };
 
-  deleteUser = (id: number) => {
-    deleteUser(id);
+  deleteUser = async (id: number) => {
+    return await deleteUser(id);
   };
 
-  updateUser = (
+  updateUser = async (
     id: number,
     data: { name?: string; email?: string; password?: string }
   ) => {
-    updateUser(id, data);
+    return await updateUser(id, data);
   };
 }
 
