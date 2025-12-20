@@ -9,3 +9,12 @@ export const validationError = (
     message,
   });
 };
+
+export class PrismaError extends Error {
+  status: number;
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = "PrismaError";
+    this.status = status;
+  }
+}
